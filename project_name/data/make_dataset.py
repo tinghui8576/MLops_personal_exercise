@@ -47,11 +47,11 @@ def processing():
     df_en["body_text"] = df_en["body_text"].apply(text_preprocessing)
     
     # Split dataset into train-valid-test in 80:10:10
-    train, test = train_test_split(df_en["body_text"], test_size=0.8)
-    test, valid = train_test_split(test, test_size=0.8)
-    train.to_csv('data/processed/train.csv', index=False)
-    valid.to_csv('data/processed/valid.csv', index=False)
-    test.to_csv('data/processed/test.csv', index=False)
+    train, test = train_test_split(df_en, test_size=0.8, shuffle=True)
+    test, valid = train_test_split(test, test_size=0.5, shuffle=True)
+    train.to_csv('data/processed/train.csv', columns = ["title", "body_text"], index=False)
+    valid.to_csv('data/processed/valid.csv', columns = ["title", "body_text"], index=False)
+    test.to_csv('data/processed/test.csv', columns = ["title", "body_text"], index=False)
     
 if __name__ == '__main__':
     # Get the data and process it
